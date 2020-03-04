@@ -1,14 +1,21 @@
 package edu.miu.curriculumvitaeapp
 
+import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.Adapter
+import android.widget.ArrayAdapter
+import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_home.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -70,5 +77,19 @@ class MainActivity : AppCompatActivity() {
             .replace(R.id.frameLayout, fragment)
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .commit()
+    }
+
+    fun addSkillClicked(view: View) {
+        val input = EditText(this)
+        AlertDialog.Builder(this)
+            .setTitle("Add new skill")
+            .setView(input)
+            .setPositiveButton("Ok") { dialogInterface, i ->
+                val newSkill = input.text.toString()
+                homeFragment.skills.add(0, newSkill)
+            }
+            .setNegativeButton("Cancel") {a , b ->
+            }
+            .show()
     }
 }
